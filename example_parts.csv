@@ -1,0 +1,12 @@
+# Example CSV file for lego_to_bricklink.py
+# Format: element_id;quantity
+# Lines starting with # are ignored
+#
+# These are example Element IDs from LEGO set 70810 (MetalBeard's Sea Cow)
+4585493;1
+4144024;1
+4211412;4
+4211221;1
+4523159;2
+302223;1
+654126;1
