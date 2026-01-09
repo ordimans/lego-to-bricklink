@@ -1,21 +1,23 @@
 # LEGO to BrickLink Converter
 
-Convertit une liste d'**Element IDs LEGO** (depuis un manuel LEGO) en fichier **XML compatible BrickLink** pour importer une Wanted List.
+[🇫🇷 Version française](README.fr.md)
 
-Utile quand tu as un set LEGO incomplet et que tu veux commander les pieces manquantes sur BrickLink.
+Convert **LEGO Element IDs** (from LEGO instruction manuals) to **BrickLink-compatible XML** for importing a Wanted List.
 
-## Fonctionnalites
+Useful when you have an incomplete LEGO set and want to order missing parts on BrickLink.
 
-- Convertit les Element IDs LEGO en Part Numbers BrickLink
-- Recupere automatiquement la couleur correcte via l'API BrickLink
-- Agregation automatique des doublons (quantites additionnees)
-- Genere un XML pret a importer sur BrickLink
-- Aucune dependance externe (Python standard library uniquement)
+## Features
 
-## Prerequis
+- Converts LEGO Element IDs to BrickLink Part Numbers
+- Automatically retrieves correct colors via BrickLink API
+- Auto-aggregates duplicates (quantities are summed)
+- Generates XML ready for BrickLink import
+- No external dependencies (Python standard library only)
+
+## Prerequisites
 
 - Python 3.6+
-- Cles API BrickLink (gratuites)
+- BrickLink API keys (free)
 
 ## Installation
 
@@ -26,42 +28,42 @@ cd lego-to-bricklink
 
 ## Configuration
 
-### Obtenir les cles API BrickLink
+### Get BrickLink API Keys
 
-1. Connecte-toi sur [BrickLink.com](https://www.bricklink.com)
-2. Va dans **My BrickLink > API** ou directement: https://www.bricklink.com/v2/api/register_consumer.page
-3. Cree une nouvelle "Consumer Key"
-4. Note les 4 cles fournies
+1. Log in to [BrickLink.com](https://www.bricklink.com)
+2. Go to **My BrickLink > API** or directly: https://www.bricklink.com/v2/api/register_consumer.page
+3. Create a new "Consumer Key"
+4. Save the 4 keys provided
 
-### Configurer les variables d'environnement
+### Set Environment Variables
 
-Copie le fichier d'exemple et remplis-le avec tes cles:
+Copy the example file and fill in your keys:
 
 ```bash
 cp .env.example .env
-nano .env  # ou ton editeur prefere
+nano .env  # or your preferred editor
 ```
 
-Puis charge les variables:
+Then load the variables:
 
 ```bash
 source .env
 ```
 
-Ou exporte-les directement:
+Or export them directly:
 
 ```bash
-export BRICKLINK_CONSUMER_KEY=ta_consumer_key
-export BRICKLINK_CONSUMER_SECRET=ton_consumer_secret
-export BRICKLINK_TOKEN=ton_token
-export BRICKLINK_TOKEN_SECRET=ton_token_secret
+export BRICKLINK_CONSUMER_KEY=your_consumer_key
+export BRICKLINK_CONSUMER_SECRET=your_consumer_secret
+export BRICKLINK_TOKEN=your_token
+export BRICKLINK_TOKEN_SECRET=your_token_secret
 ```
 
-## Utilisation
+## Usage
 
-### Format du fichier CSV
+### CSV File Format
 
-Cree un fichier CSV avec les Element IDs et quantites (separateur: point-virgule):
+Create a CSV file with Element IDs and quantities (semicolon separator):
 
 ```csv
 element_id;quantity
@@ -70,15 +72,15 @@ element_id;quantity
 4211412;4
 ```
 
-Les Element IDs se trouvent dans les manuels LEGO, a cote de chaque piece dans la liste d'inventaire.
+Element IDs can be found in LEGO manuals, next to each part in the inventory list.
 
-### Lancer la conversion
+### Run the Conversion
 
 ```bash
 python3 lego_to_bricklink.py input.csv output.xml
 ```
 
-### Exemple
+### Example
 
 ```bash
 $ python3 lego_to_bricklink.py missing_parts.csv wanted_list.xml
@@ -102,56 +104,57 @@ Total parts: 40
 Total pieces: 61
 ```
 
-### Importer sur BrickLink
+### Import to BrickLink
 
-1. Va sur [BrickLink.com](https://www.bricklink.com)
-2. **Want > Upload** ou directement: https://www.bricklink.com/v2/wanted/upload.page
-3. Selectionne ton fichier XML
-4. Importe!
+1. Go to [BrickLink.com](https://www.bricklink.com)
+2. **Want > Upload** or directly: https://www.bricklink.com/v2/wanted/upload.page
+3. Select your XML file
+4. Import!
 
-## Structure du projet
+## Project Structure
 
 ```
 lego-to-bricklink/
-├── lego_to_bricklink.py   # Script principal
-├── example_parts.csv      # Exemple de fichier CSV
-├── .env.example           # Template pour les variables d'environnement
+├── lego_to_bricklink.py   # Main script
+├── example_parts.csv      # Example CSV file
+├── .env.example           # Environment variables template
 ├── .gitignore
-└── README.md
+├── README.md              # English documentation
+└── README.fr.md           # French documentation
 ```
 
-## Comment trouver les Element IDs
+## How to Find Element IDs
 
-Les Element IDs sont les numeros a 6-7 chiffres que tu trouves:
+Element IDs are the 6-7 digit numbers found:
 
-- Dans les **manuels LEGO** (liste des pieces a la fin)
-- Sur les **sachets de pieces** LEGO
-- Sur le site LEGO dans les inventaires de sets
+- In **LEGO instruction manuals** (parts list at the end)
+- On **LEGO parts bags**
+- On the LEGO website in set inventories
 
-Exemple dans un manuel LEGO:
+Example in a LEGO manual:
 ```
-Piece: Slope, Inverted 45 2 x 2
+Part: Slope, Inverted 45 2 x 2
 Element ID: 4211221
 ```
 
-## API BrickLink
+## BrickLink API
 
-Ce script utilise l'endpoint `/item_mapping/{element_id}` de l'API BrickLink pour convertir les Element IDs LEGO en:
-- **Part Number** BrickLink (ex: `3660`)
-- **Color ID** BrickLink (ex: `88` = Reddish Brown)
+This script uses the `/item_mapping/{element_id}` endpoint of the BrickLink API to convert LEGO Element IDs to:
+- **Part Number** BrickLink (e.g., `3660`)
+- **Color ID** BrickLink (e.g., `88` = Reddish Brown)
 
-Documentation API: https://www.bricklink.com/v3/api.page
+API Documentation: https://www.bricklink.com/v3/api.page
 
-## Licence
+## License
 
-MIT License - Fais-en ce que tu veux!
+MIT License - Do whatever you want with it!
 
-## Contribuer
+## Contributing
 
-Les PRs sont les bienvenues! Si tu trouves un bug ou veux ajouter une fonctionnalite:
+PRs are welcome! If you find a bug or want to add a feature:
 
-1. Fork le repo
-2. Cree une branche (`git checkout -b feature/ma-feature`)
-3. Commit (`git commit -m 'Add ma feature'`)
-4. Push (`git push origin feature/ma-feature`)
-5. Ouvre une PR
+1. Fork the repo
+2. Create a branch (`git checkout -b feature/my-feature`)
+3. Commit (`git commit -m 'Add my feature'`)
+4. Push (`git push origin feature/my-feature`)
+5. Open a PR
